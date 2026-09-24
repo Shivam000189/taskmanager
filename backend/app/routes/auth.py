@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 
 from app.services.supabase_service import supabase
 
@@ -8,7 +8,7 @@ auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.post("/register")
 def register():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     email = data.get("email")
     password = data.get("password")
@@ -29,15 +29,14 @@ def register():
             "user": response.user.model_dump() if response.user else None
         }), 201
 
-    except Exception as e:
-        return jsonify({
-            "error": str(e)
-        }), 400
+    except Exception:
+        current_app.logger.exception("Registration failed")
+        return jsonify({"error": "Registration failed"}), 400
 
 
 @auth_bp.post("/login")
 def login():
-    data = request.get_json()
+    data = request.get_json(silent=True) or {}
 
     email = data.get("email")
     password = data.get("password")
@@ -60,7 +59,6 @@ def login():
             "user": response.user.model_dump()
         }), 200
 
-    except Exception as e:
-        return jsonify({
-            "error": str(e)
-        }), 401
+    except Exception:
+        current_app.logger.exception("Login failed")
+        return jsonify({"error": "Invalid email or password"}), 401

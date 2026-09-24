@@ -1,14 +1,17 @@
 from flask import Flask
 from flask_cors import CORS
 
+from app.config import Config
 
 
 def create_app():
+    Config.validate()
+
     app = Flask(__name__)
+    app.config.from_object(Config)
 
-    CORS(app)
+    CORS(app, origins=[Config.FRONTEND_URL])
 
-    
     from app.routes.auth import auth_bp
     from app.routes.users import users_bp
 
@@ -17,8 +20,6 @@ def create_app():
 
     @app.route("/")
     def home():
-        return {
-            "message": "Flask API is running"
-        }
+        return {"message": "Flask API is running"}
 
     return app
