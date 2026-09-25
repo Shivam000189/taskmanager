@@ -1,10 +1,8 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
-
+from werkzeug.exceptions import HTTPException
 
 from app.config import Config
-
-
 
 
 def create_app():
@@ -22,9 +20,14 @@ def create_app():
     app.register_blueprint(tasks_bp, url_prefix="/api/tasks")
 
     @app.route("/")
-    
-    
     def home():
         return {"message": "Flask API is running"}
+
+    @app.errorhandler(Exception)
+    def handle_exception(e):
+        if isinstance(e, HTTPException):
+            return jsonify({"error": e.description}), e.code
+        app.logger.exception(f"Unhandled server error: {e}")
+        return jsonify({"error": "Internal server error"}), 500
 
     return app
