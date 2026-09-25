@@ -11,8 +11,7 @@ class Config:
     FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000").strip().rstrip("/")
     FLASK_DEBUG = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    RESEND_API_KEY = os.getenv("RESEND_API_KEY")
     MAIL_FROM_NAME = os.getenv("MAIL_FROM_NAME", "Task Manager")
 
     @classmethod
@@ -30,7 +29,7 @@ class Config:
     @classmethod
     def validate(cls):
         missing = [
-            name for name in ("SUPABASE_URL", "SUPABASE_KEY", "MAIL_USERNAME", "MAIL_PASSWORD")
+            name for name in ("SUPABASE_URL", "SUPABASE_KEY", "RESEND_API_KEY")
             if not getattr(cls, name)
         ]
         if missing:

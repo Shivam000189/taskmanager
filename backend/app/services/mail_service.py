@@ -1,27 +1,23 @@
-import smtplib
+import logging
 import threading
-from email.message import EmailMessage
 
-from flask import current_app
+import resend
 
 from app.config import Config
 
+resend.api_key = Config.RESEND_API_KEY
+
 
 def _send(subject: str, to_email: str, body: str):
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = f"{Config.MAIL_FROM_NAME} <{Config.MAIL_USERNAME}>"
-    msg["To"] = to_email
-    msg.set_content(body)
-
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
-            server.starttls()
-            server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.send_message(msg)
+        resend.api_key = Config.RESEND_API_KEY
+        resend.Emails.send({
+            "from": f"{Config.MAIL_FROM_NAME} <onboarding@resend.dev>",
+            "to": to_email,
+            "subject": subject,
+            "text": body,
+        })
     except Exception:
-        
-        import logging
         logging.exception(f"Failed to send email to {to_email}")
 
 
