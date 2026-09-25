@@ -4,3 +4,4 @@ venv/
 __pycache__
 /.agents
 skills-lock.json
+/test-client

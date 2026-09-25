@@ -12,10 +12,8 @@ def create_app():
 
     CORS(app, origins=[Config.FRONTEND_URL])
 
-    from app.routes.auth import auth_bp
     from app.routes.users import users_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(users_bp, url_prefix="/api/users")
 
     @app.route("/")
