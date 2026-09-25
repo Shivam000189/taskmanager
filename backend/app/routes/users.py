@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from app.services.supabase_service import supabase
 
 from app.middleware.auth_guard import auth_required
 
@@ -21,3 +22,18 @@ def get_current_user():
             "avatar_url": meta.get("avatar_url") or meta.get("picture"),
         }
     })
+
+
+@users_bp.get("")
+@auth_required
+def list_users():
+    search = request.args.get("search", "").strip()
+
+    query = supabase.table("profiles").select("id, email, full_name, avatar_url")
+
+    if search:
+        query = query.or_(f"email.ilike.%{search}%,full_name.ilike.%{search}%")
+
+    response = query.limit(20).execute()
+
+    return jsonify({"users": response.data})

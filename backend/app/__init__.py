@@ -1,7 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 
+
 from app.config import Config
+
+
 
 
 def create_app():
@@ -13,10 +16,14 @@ def create_app():
     CORS(app, origins=[Config.FRONTEND_URL])
 
     from app.routes.users import users_bp
+    from app.routes.tasks import tasks_bp
 
     app.register_blueprint(users_bp, url_prefix="/api/users")
+    app.register_blueprint(tasks_bp, url_prefix="/api/tasks")
 
     @app.route("/")
+    
+    
     def home():
         return {"message": "Flask API is running"}
 
