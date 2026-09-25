@@ -161,3 +161,130 @@ def complete_task(task_id):
             logging.exception("Failed to send task completion notification email")
 
     return jsonify({"task": completed_task})
+
+
+@tasks_bp.get("/<task_id>/comments")
+@auth_required
+def list_comments(task_id):
+    task_res = supabase.table("tasks").select("id").eq("id", task_id).execute()
+    if not task_res.data:
+        return jsonify({"error": "Task not found"}), 404
+
+    comments_res = (
+        supabase.table("comments")
+        .select("*")
+        .eq("task_id", task_id)
+        .order("created_at", desc=False)
+        .execute()
+    )
+    comments = comments_res.data or []
+
+    user_ids = list({c["user_id"] for c in comments if c.get("user_id")})
+    profiles_map = {}
+    if user_ids:
+        profiles_res = (
+            supabase.table("profiles")
+            .select("id, email, full_name, avatar_url")
+            .in_("id", user_ids)
+            .execute()
+        )
+        if profiles_res.data:
+            profiles_map = {p["id"]: p for p in profiles_res.data}
+
+    for comment in comments:
+        comment["user"] = profiles_map.get(comment.get("user_id"))
+
+    return jsonify({"comments": comments})
+
+
+@tasks_bp.post("/<task_id>/comments")
+@auth_required
+def create_comment(task_id):
+    data = request.get_json(silent=True) or {}
+    content = (data.get("content") or "").strip()
+
+    if not content:
+        return jsonify({"error": "Comment content cannot be empty"}), 400
+
+    task_res = supabase.table("tasks").select("*").eq("id", task_id).execute()
+    if not task_res.data:
+        return jsonify({"error": "Task not found"}), 404
+
+    task = task_res.data[0]
+
+    comment_data = {
+        "task_id": task_id,
+        "user_id": request.user.id,
+        "content": content,
+    }
+
+    insert_res = supabase.table("comments").insert(comment_data).execute()
+    if not insert_res.data:
+        return jsonify({"error": "Failed to create comment"}), 500
+
+    created_comment = insert_res.data[0]
+
+    author_res = (
+        supabase.table("profiles")
+        .select("id, email, full_name, avatar_url")
+        .eq("id", request.user.id)
+        .execute()
+    )
+    author_profile = author_res.data[0] if author_res.data else None
+    created_comment["user"] = author_profile
+    author_name = (author_profile.get("full_name") if author_profile else None) or "A team member"
+
+    # Send email notification to other participants (creator and/or assignee)
+    recipients_to_notify = set()
+    if task.get("created_by") and task["created_by"] != request.user.id:
+        recipients_to_notify.add(task["created_by"])
+    if task.get("assigned_to") and task["assigned_to"] != request.user.id:
+        recipients_to_notify.add(task["assigned_to"])
+
+    for recipient_id in recipients_to_notify:
+        try:
+            rec_res = (
+                supabase.table("profiles")
+                .select("email, full_name")
+                .eq("id", recipient_id)
+                .execute()
+            )
+            if rec_res.data and rec_res.data[0].get("email"):
+                rec_profile = rec_res.data[0]
+                rec_name = rec_profile.get("full_name") or "there"
+                send_email_async(
+                    subject=f"New comment on task: {task['title']}",
+                    to_email=rec_profile["email"],
+                    body=(
+                        f"Hi {rec_name},\n\n"
+                        f"{author_name} commented on \"{task['title']}\":\n\n"
+                        f"\"{content}\"\n\n"
+                        f"View task: {Config.FRONTEND_URL}/tasks/{task_id}\n\n"
+                        f"— {Config.MAIL_FROM_NAME}"
+                    ),
+                )
+        except Exception:
+            logging.exception("Failed to send comment notification email")
+
+    return jsonify({"comment": created_comment}), 201
+
+
+@tasks_bp.delete("/<task_id>/comments/<comment_id>")
+@auth_required
+def delete_comment(task_id, comment_id):
+    existing = (
+        supabase.table("comments")
+        .select("*")
+        .eq("id", comment_id)
+        .eq("task_id", task_id)
+        .execute()
+    )
+    if not existing.data:
+        return jsonify({"error": "Comment not found"}), 404
+
+    comment = existing.data[0]
+    if comment["user_id"] != request.user.id:
+        return jsonify({"error": "You can only delete your own comments"}), 403
+
+    supabase.table("comments").delete().eq("id", comment_id).execute()
+    return jsonify({"message": "Comment deleted"})

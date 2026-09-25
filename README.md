@@ -8,6 +8,7 @@ Google OAuth login and email notifications.
 - Create tasks and assign them to other registered users
 - Email notification when a task is assigned
 - Email notification when a task is marked complete
+- Task comments thread with instant updates and email alerts
 - Row Level Security so users only see and edit tasks they created or
   were assigned
 
@@ -47,6 +48,9 @@ RLS policies.
 | PATCH | `/api/tasks/<id>` | Yes | Update a task (creator only) |
 | PATCH | `/api/tasks/<id>/complete` | Yes | Mark complete (creator or assignee) |
 | DELETE | `/api/tasks/<id>` | Yes | Delete a task (creator only) |
+| GET | `/api/tasks/<id>/comments` | Yes | List comments on a task with user profiles |
+| POST | `/api/tasks/<id>/comments` | Yes | Add a comment & notify task participants via email |
+| DELETE | `/api/tasks/<id>/comments/<comment_id>` | Yes | Delete your own comment |
 
 ## Notes
 - Auth uses Supabase's Google OAuth provider; the actual login happens

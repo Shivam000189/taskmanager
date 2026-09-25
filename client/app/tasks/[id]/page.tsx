@@ -14,6 +14,7 @@ import { DeleteTaskButton } from "@/components/tasks/DeleteTaskButton";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { ErrorMessage } from "@/components/ui/ErrorMessage";
+import { TaskComments } from "@/components/tasks/TaskComments";
 import {
   ArrowLeft,
   Calendar,
@@ -168,7 +169,8 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
             </p>
           </div>
         ) : task ? (
-          <div className="rounded-2xl border border-border bg-surface p-6 sm:p-8 shadow-none">
+          <>
+            <div className="rounded-2xl border border-border bg-surface p-6 sm:p-8 shadow-none">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-6 border-b border-border">
               <div className="flex-1">
                 <div className="flex items-center gap-2.5 mb-2.5">
@@ -324,6 +326,8 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
               </div>
             </div>
           </div>
+          <TaskComments taskId={task.id} currentUserId={user?.id} />
+        </>
         ) : null}
       </main>
     </div>

@@ -58,3 +58,21 @@ export interface UpdateTaskInput {
 }
 
 export type TaskFilterScope = "all" | "created" | "assigned";
+
+export interface Comment {
+  id: string;
+  task_id: string;
+  user_id: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  user?: Profile | null;
+}
+
+export interface CommentsResponse {
+  comments: Comment[];
+}
+
+export interface CommentResponse {
+  comment: Comment;
+}
