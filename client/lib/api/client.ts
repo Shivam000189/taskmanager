@@ -19,17 +19,12 @@ interface RequestOptions extends Omit<RequestInit, "body"> {
   body?: any;
 }
 
-/**
- * Single place that reads the Supabase session and attaches the Authorization header.
- * Every api/*.ts function routes requests through apiClient.
- */
 export async function apiClient<T>(
   endpoint: string,
   options: RequestOptions = {}
 ): Promise<T> {
   const url = `${API_BASE_URL}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
-  // Get current Supabase session access token
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -60,7 +55,6 @@ export async function apiClient<T>(
     );
   }
 
-  // Handle empty or 204 No Content
   if (response.status === 204) {
     return {} as T;
   }

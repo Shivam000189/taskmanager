@@ -40,7 +40,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setProfile(userData);
       }
     } catch {
-      // Fallback to Supabase user metadata if API is temporarily unavailable
       if (user) {
         setProfile({
           id: user.id,
@@ -59,7 +58,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let mounted = true;
 
-    // Initialize session from browser storage
     const initializeAuth = async () => {
       try {
         const {
@@ -70,7 +68,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setSession(initialSession);
           setUser(initialSession?.user ?? null);
           if (initialSession?.user) {
-            // Populate fallback profile immediately
             setProfile({
               id: initialSession.user.id,
               email: initialSession.user.email || "",
@@ -82,7 +79,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 initialSession.user.user_metadata?.avatar_url ||
                 initialSession.user.user_metadata?.picture,
             });
-            // Then sync with backend
             fetchProfile();
           }
         }
@@ -97,7 +93,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     initializeAuth();
 
-    // Listen for auth state changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, newSession) => {

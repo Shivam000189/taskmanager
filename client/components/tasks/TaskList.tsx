@@ -23,7 +23,6 @@ export function TaskList({
 }: TaskListProps) {
   const [profilesMap, setProfilesMap] = useState<Record<string, Profile>>({});
 
-  // Resolve assignee profiles
   useEffect(() => {
     const assignedIds = Array.from(
       new Set(tasks.map((t) => t.assigned_to).filter(Boolean) as string[])
@@ -41,7 +40,6 @@ export function TaskList({
       });
       setProfilesMap((prev) => ({ ...prev, ...newMap }));
     }).catch(() => {
-      // Ignore background profile fetch failure
     });
 
     return () => {

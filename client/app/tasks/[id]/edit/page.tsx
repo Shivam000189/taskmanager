@@ -39,7 +39,6 @@ export default function EditTaskPage({ params }: EditTaskPageProps) {
         const taskData = await getTask(taskId);
         if (!mounted) return;
 
-        // Verify creator permission - creator only
         if (user && taskData.created_by !== user.id) {
           router.replace(`/tasks/${taskId}`);
           return;
@@ -55,7 +54,6 @@ export default function EditTaskPage({ params }: EditTaskPageProps) {
               if (assignee) setAssigneeProfile(assignee);
             }
           } catch {
-            // Ignore assignee fetch failure
           }
         }
       } catch (err: any) {

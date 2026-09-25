@@ -20,7 +20,6 @@ export function TaskCard({
   assignee,
   onTaskUpdated,
 }: TaskCardProps) {
-  // Format due date if present
   const formattedDueDate = task.due_date
     ? new Date(task.due_date).toLocaleDateString(undefined, {
         month: "short",
@@ -48,7 +47,6 @@ export function TaskCard({
   return (
     <div className="group relative flex flex-col justify-between rounded-2xl border border-border bg-surface p-5 transition-all duration-150 hover:border-foreground/20 hover:shadow-sm">
       <div>
-        {/* Top row: Status tag */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <TaskStatusBadge status={task.status} />
           
@@ -61,7 +59,6 @@ export function TaskCard({
           </Link>
         </div>
 
-        {/* Title */}
         <Link
           href={`/tasks/${task.id}`}
           className="block text-base font-bold text-foreground hover:text-primary transition-colors tracking-tight line-clamp-2 mb-2"
@@ -69,7 +66,6 @@ export function TaskCard({
           {task.title}
         </Link>
 
-        {/* Description line (truncated) */}
         {task.description ? (
           <p className="text-xs text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
             {task.description}
@@ -79,9 +75,7 @@ export function TaskCard({
         )}
       </div>
 
-      {/* Bottom row: Due date & Assignee avatar */}
       <div className="pt-3 border-t border-border mt-auto flex items-center justify-between gap-3 text-xs">
-        {/* Left: Due Date */}
         {formattedDueDate ? (
           <div
             suppressHydrationWarning
@@ -99,7 +93,6 @@ export function TaskCard({
           <span className="text-[11px] text-muted-foreground/60">No deadline</span>
         )}
 
-        {/* Right: Assignee & Complete action */}
         <div className="flex items-center gap-2">
           {task.status === "pending" && (
             <CompleteTaskButton
@@ -109,7 +102,6 @@ export function TaskCard({
             />
           )}
 
-          {/* Assignee Avatar */}
           <div className="flex items-center gap-1.5" title={assignee?.email || (task.assigned_to ? "Assigned" : "Unassigned")}>
             {assignee?.avatar_url ? (
               // eslint-disable-next-line @next/next/no-img-element

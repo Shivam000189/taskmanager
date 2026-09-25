@@ -29,7 +29,6 @@ def auth_required(f):
 
             request.user = user_response.user
 
-            # Attach this user's token so RLS policies (auth.uid()) see the real user
             supabase.postgrest.auth(token)
 
         except Exception:

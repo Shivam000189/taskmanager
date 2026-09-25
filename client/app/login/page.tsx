@@ -31,7 +31,6 @@ export default function LoginPage() {
     <div className="flex min-h-screen flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="rounded-2xl border border-border bg-surface p-8 sm:p-10 shadow-none">
-          {/* Logo & Heading */}
           <div className="text-center mb-8">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white mb-4">
               <CheckSquare className="h-6 w-6" />
@@ -50,7 +49,6 @@ export default function LoginPage() {
             className="mb-6"
           />
 
-          {/* Primary Action Button */}
           <GoogleSignInButton
             onError={(err) => setErrorMessage(err.message || "Failed to sign in with Google")}
           />

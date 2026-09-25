@@ -30,7 +30,6 @@ export function ValuesSection() {
   return (
     <section id="features" className="py-20 sm:py-28 relative">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 bg-white border border-neutral-200/80 px-3.5 py-1.5 rounded-full shadow-xs mb-4">
             <Sparkles className="w-3.5 h-3.5 text-emerald-800" />
@@ -49,14 +48,12 @@ export function ValuesSection() {
           </p>
         </div>
 
-        {/* 3 Grid Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {cards.map((card, idx) => (
             <div
               key={idx}
               className="group relative bg-white rounded-3xl p-8 border border-neutral-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Paper clip on top-left */}
               <div className="absolute -top-3.5 left-8 pointer-events-none z-10">
                 <img
                   src="/assets/PBpuxqRpmPqftU0hol2DVhW7bus.png"
@@ -65,7 +62,6 @@ export function ValuesSection() {
                 />
               </div>
 
-              {/* Text Area */}
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-[#101918] mb-3">
                   {card.title}
@@ -75,7 +71,6 @@ export function ValuesSection() {
                 </p>
               </div>
 
-              {/* 3D Render Illustration */}
               <div className="mt-8 flex justify-center items-center py-4">
                 <img
                   src={card.image}

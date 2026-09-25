@@ -20,7 +20,6 @@ export function Navbar() {
   const displayAvatar =
     profile?.avatar_url || user?.user_metadata?.avatar_url;
 
-  // Compute initials fallback
   const initials = displayName
     .split(" ")
     .map((n: string) => n[0])
@@ -68,7 +67,6 @@ export function Navbar() {
             </Button>
           </Link>
 
-          {/* User profile & Sign out */}
           <div className="flex items-center gap-3 pl-2 border-l border-border">
             <div className="flex items-center gap-2.5">
               {displayAvatar ? (

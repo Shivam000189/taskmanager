@@ -33,7 +33,6 @@ export function Navbar() {
             : "bg-white/80 backdrop-blur-sm border border-neutral-200/60"
         }`}
       >
-        {/* Brand Logo */}
         <a
           href="#"
           onClick={(e) => {
@@ -42,7 +41,6 @@ export function Navbar() {
           }}
           className="flex items-center gap-2.5 group"
         >
-          {/* Green circle icon mark */}
           <div className="w-8 h-8 rounded-full bg-[#055049] flex items-center justify-center transition-transform group-hover:scale-105">
             <span className="text-white font-bold text-sm">T</span>
           </div>
@@ -51,9 +49,7 @@ export function Navbar() {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-[15px] font-medium text-neutral-600">
-          {/* Pages Dropdown */}
           <div className="relative">
             <button
               onClick={() => setPagesOpen(!pagesOpen)}
@@ -122,7 +118,6 @@ export function Navbar() {
           </button>
         </nav>
 
-        {/* Action Button */}
         <div className="flex items-center gap-3">
           <Link
             href="/login"
@@ -131,7 +126,6 @@ export function Navbar() {
             Get Started
           </Link>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-neutral-700 hover:text-black rounded-lg focus:outline-none"
@@ -146,7 +140,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="md:hidden max-w-[1240px] mx-auto mt-2 bg-white/95 backdrop-blur-md rounded-2xl p-5 shadow-xl border border-neutral-200">
           <div className="flex flex-col gap-3 font-medium text-neutral-700">

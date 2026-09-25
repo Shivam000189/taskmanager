@@ -1,17 +1,17 @@
 export interface Task {
-  id: string; // uuid
+  id: string;
   title: string;
   description: string | null;
   status: "pending" | "completed";
-  due_date: string | null; // ISO date
-  created_by: string; // uuid
-  assigned_to: string | null; // uuid
-  created_at: string; // ISO timestamp
-  updated_at: string; // ISO timestamp
+  due_date: string | null;
+  created_by: string;
+  assigned_to: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Profile {
-  id: string; // uuid
+  id: string;
   email: string;
   full_name: string | null;
   avatar_url: string | null;

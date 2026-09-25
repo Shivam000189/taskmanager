@@ -8,19 +8,13 @@ import { Footer } from "@/components/landing/Footer";
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-[var(--font-inter),sans-serif] overflow-x-hidden selection:bg-primary selection:text-white">
-      {/* Sticky Navigation */}
       <Navbar />
 
-      {/* Main Page Flow */}
       <main className="flex-1">
-        {/* Hero Section */}
         <Hero />
-
-        {/* Project Flow — How It Works */}
         <FlowSection />
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

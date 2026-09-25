@@ -29,7 +29,6 @@ export function TaskStatusBadge({
       text: "text-[var(--status-done-text)]",
       dot: "bg-[var(--status-done-text)]",
     },
-    // Future expansion statuses preserved as requested
     progress: {
       label: "In Progress",
       bg: "bg-[var(--status-progress-bg)]",

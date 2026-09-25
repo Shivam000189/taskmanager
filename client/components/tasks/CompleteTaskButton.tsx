@@ -23,7 +23,6 @@ export function CompleteTaskButton({
 }: CompleteTaskButtonProps) {
   const [loading, setLoading] = useState(false);
 
-  // Only allowed if task is pending AND user is creator or assignee
   const isCreator = currentUserId && task.created_by === currentUserId;
   const isAssignee = currentUserId && task.assigned_to === currentUserId;
   const canComplete = task.status === "pending" && (isCreator || isAssignee);

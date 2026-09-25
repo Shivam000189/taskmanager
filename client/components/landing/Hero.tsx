@@ -6,7 +6,6 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section id="hero" className="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
-      {/* Background lined paper subtle pattern like in task-manger-landing */}
       <div
         className="absolute inset-0 pointer-events-none opacity-50"
         style={{
@@ -17,10 +16,8 @@ export function Hero() {
       />
 
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10">
-        {/* Center Rating Badge */}
         <div className="flex justify-center mb-6 sm:mb-8">
           <div className="relative inline-flex items-center gap-3 bg-white/90 backdrop-blur-sm border border-neutral-200/80 px-4 py-2 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
-            {/* Paperclip attached over the badge */}
             <div className="absolute -top-3.5 right-1/3 transform translate-x-3 pointer-events-none z-30">
               <img
                 src="/assets/PBpuxqRpmPqftU0hol2DVhW7bus.png"
@@ -29,7 +26,6 @@ export function Hero() {
               />
             </div>
 
-            {/* Overlapping User Avatars */}
             <div className="flex -space-x-2 overflow-hidden items-center">
               <img
                 className="inline-block h-7 w-7 rounded-full ring-2 ring-white object-cover"
@@ -46,7 +42,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Stars & Rating */}
             <div className="flex items-center gap-1">
               <div className="flex text-amber-500">
                 {[...Array(5)].map((_, i) => (
@@ -63,7 +58,6 @@ export function Hero() {
 
             <span className="text-neutral-300">|</span>
 
-            {/* Trusted text */}
             <span className="text-xs font-semibold text-neutral-700">
               Trusted by{" "}
               <span className="text-neutral-900 font-bold">48,890+</span> users
@@ -71,7 +65,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Main Heading */}
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#101918] leading-[1.08]">
             Turn ideas into action with a smarter way to manage tasks.
@@ -82,7 +75,6 @@ export function Hero() {
             your team aligned.
           </p>
 
-          {/* CTA Buttons */}
           <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/login"

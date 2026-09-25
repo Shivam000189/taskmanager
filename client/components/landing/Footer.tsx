@@ -28,9 +28,7 @@ export function Footer() {
       className="relative pt-20 pb-12 overflow-hidden bg-white border-t border-neutral-200/80"
     >
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 relative z-10">
-        {/* Top Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pb-16 border-b border-neutral-200/80">
-          {/* Brand Info & Mission */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <div>
               <a href="#" className="inline-flex items-center gap-2.5 mb-5">
@@ -54,7 +52,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links Columns */}
           <div className="lg:col-span-4 grid grid-cols-2 gap-8">
             <div>
               <h4 className="text-sm font-bold text-[#101918] uppercase tracking-wider mb-4">
@@ -118,7 +115,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Newsletter Box */}
           <div className="lg:col-span-4 bg-[#F8F9FA] rounded-3xl p-6 sm:p-8 border border-neutral-200/80">
             <h4 className="text-lg font-bold text-[#101918] mb-2">
               Stay in the Loop with TaskManager
@@ -157,7 +153,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Giant Watermark Logo — blurred like original */}
         <div className="relative pt-12 pb-8 flex justify-center pointer-events-none select-none overflow-hidden">
           <div
             className="text-[100px] sm:text-[160px] lg:text-[200px] font-extrabold tracking-tight leading-none text-neutral-200/60"
@@ -173,7 +168,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Copyright */}
         <div className="pt-6 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <p>Copyright © 2025 TaskManager. All Rights Reserved</p>
           <div className="flex items-center gap-6">

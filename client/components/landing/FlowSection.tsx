@@ -52,7 +52,6 @@ export function FlowSection() {
   return (
     <section id="flow" className="py-20 sm:py-28 relative">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-        {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 bg-white border border-neutral-200/80 px-3.5 py-1.5 rounded-full shadow-xs mb-4">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
@@ -70,7 +69,6 @@ export function FlowSection() {
           </p>
         </div>
 
-        {/* Feature Blocks */}
         <div className="space-y-8 sm:space-y-12">
           {steps.map((step, idx) => (
             <div
@@ -78,7 +76,6 @@ export function FlowSection() {
               className="bg-white rounded-3xl p-8 sm:p-12 lg:p-14 border border-neutral-200/80 shadow-[0_10px_35px_rgba(0,0,0,0.03)]"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                {/* Text Column */}
                 <div
                   className={`lg:col-span-5 flex flex-col justify-center ${
                     step.reverse ? "order-1 lg:order-2" : ""
@@ -119,7 +116,6 @@ export function FlowSection() {
                   </div>
                 </div>
 
-                {/* Image Column */}
                 <div
                   className={`lg:col-span-7 ${
                     step.reverse ? "order-2 lg:order-1" : ""

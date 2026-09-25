@@ -182,7 +182,6 @@ export function AssigneePicker({
 
       {error && <p className="mt-1.5 text-xs text-[#DC2626] font-medium">{error}</p>}
 
-      {/* Dropdown list */}
       {isOpen && (
         <div className="absolute z-50 mt-1.5 max-h-60 w-full overflow-auto rounded-2xl border border-border bg-surface py-1.5 shadow-lg shadow-black/5">
           <button

@@ -80,7 +80,6 @@ export function TaskForm({
         onDismiss={() => setErrorMessage(null)}
       />
 
-      {/* Title */}
       <Input
         label="Task Title"
         required
@@ -94,7 +93,6 @@ export function TaskForm({
         disabled={loading}
       />
 
-      {/* Description */}
       <div>
         <label
           htmlFor="description"
@@ -114,7 +112,6 @@ export function TaskForm({
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {/* Due Date */}
         <div>
           <label
             htmlFor="due_date"
@@ -132,7 +129,6 @@ export function TaskForm({
           />
         </div>
 
-        {/* Assignee Picker */}
         <div>
           <AssigneePicker
             value={assignedTo}
@@ -145,7 +141,6 @@ export function TaskForm({
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex items-center justify-end gap-3 pt-6 border-t border-border">
         {onCancel && (
           <Button

@@ -23,7 +23,6 @@ export function DeleteTaskButton({
 }: DeleteTaskButtonProps) {
   const [loading, setLoading] = useState(false);
 
-  // Creator only
   const isCreator = currentUserId && task.created_by === currentUserId;
   if (!isCreator) {
     return null;

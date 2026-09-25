@@ -60,7 +60,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
             if (assignee) setAssigneeProfile(assignee);
           }
         } catch {
-          // Ignore profile lookup failure
         }
       } catch (err: any) {
         if (mounted) {
@@ -170,7 +169,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
           </div>
         ) : task ? (
           <div className="rounded-2xl border border-border bg-surface p-6 sm:p-8 shadow-none">
-            {/* Top row: Status tag and action buttons */}
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-6 border-b border-border">
               <div className="flex-1">
                 <div className="flex items-center gap-2.5 mb-2.5">
@@ -186,7 +184,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
                 </h1>
               </div>
 
-              {/* Action Buttons: Pill shapes */}
               <div className="flex flex-wrap items-center gap-2">
                 <CompleteTaskButton
                   task={task}
@@ -218,7 +215,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
               </div>
             </div>
 
-            {/* Description */}
             <div className="py-6 border-b border-border">
               <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                 Description
@@ -234,9 +230,7 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
               )}
             </div>
 
-            {/* Metadata Section: Clean cards / pairs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-6 text-sm">
-              {/* Assigned To */}
               <div className="rounded-xl border border-border bg-background/50 p-4">
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">
                   Assigned To
@@ -269,7 +263,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
                 )}
               </div>
 
-              {/* Created By */}
               <div className="rounded-xl border border-border bg-background/50 p-4">
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2.5">
                   Created By
@@ -298,7 +291,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
                 </div>
               </div>
 
-              {/* Due Date */}
               <div className="flex items-start gap-3 p-1">
                 <Calendar className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                 <div>
@@ -314,7 +306,6 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
                 </div>
               </div>
 
-              {/* Activity History */}
               <div className="flex items-start gap-3 p-1">
                 <Clock className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                 <div>

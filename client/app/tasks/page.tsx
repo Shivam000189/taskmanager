@@ -46,7 +46,6 @@ export default function TasksPage() {
     );
   };
 
-  // Compute tab counts
   const tabCounts = useMemo(() => {
     if (!user) return undefined;
     return {
@@ -69,7 +68,6 @@ export default function TasksPage() {
       <Navbar />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {/* Section header row: Title on left, actions on right */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
@@ -103,7 +101,6 @@ export default function TasksPage() {
           </div>
         </div>
 
-        {/* Filter tabs row (segmented control pill) */}
         <div className="mb-8">
           <TaskFilterTabs
             currentScope={scope}
@@ -112,14 +109,12 @@ export default function TasksPage() {
           />
         </div>
 
-        {/* Error banner */}
         <ErrorMessage
           message={errorMessage}
           onDismiss={() => setErrorMessage(null)}
           className="mb-6"
         />
 
-        {/* Tasks grid / loading */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-24">
             <Spinner size="lg" />
