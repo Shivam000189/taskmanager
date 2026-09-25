@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F8F9FA;
+  --surface: #FFFFFF;
+  --foreground: #101918;
+  --muted-foreground: #525866;
+  --primary: #055049;
+  --primary-hover: #033E38;
+  --primary-foreground: #FFFFFF;
+  --accent-dark: #101918;
+  --accent-dark-hover: #202E2C;
+  --border: #E5E7EB;
+
+  /* Status and tag colors matching landing page aesthetic */
+  --status-todo-bg: #FEF3E2;
+  --status-todo-text: #D97706;
+  --status-progress-bg: #F3E8FF;
+  --status-progress-text: #9333EA;
+  --status-review-bg: #E0F2FE;
+  --status-review-text: #0284C7;
+  --status-done-bg: #ECFDF5;
+  --status-done-text: #065F46;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-dark-hover: var(--accent-dark-hover);
+  --color-border: var(--border);
+
+  --color-status-todo-bg: var(--status-todo-bg);
+  --color-status-todo: var(--status-todo-text);
+  --color-status-progress-bg: var(--status-progress-bg);
+  --color-status-progress: var(--status-progress-text);
+  --color-status-review-bg: var(--status-review-bg);
+  --color-status-review: var(--status-review-text);
+  --color-status-done-bg: var(--status-done-bg);
+  --color-status-done: var(--status-done-text);
+
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: #055049;
+  color: #ffffff;
+}
+
