@@ -1,7 +1,9 @@
 import logging
 import threading
 
-import resend
+import resend 
+# resend
+
 
 from app.config import Config
 
