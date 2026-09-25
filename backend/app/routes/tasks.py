@@ -1,7 +1,11 @@
+import logging
+
+from app import Config
 from flask import Blueprint, jsonify, request
 
 from app.middleware.auth_guard import auth_required
 from app.services.supabase_service import supabase
+from app.services.mail_service import send_email_async
 
 
 tasks_bp = Blueprint("tasks", __name__)
@@ -33,7 +37,27 @@ def create_task():
 
     response = supabase.table("tasks").insert(task).execute()
 
-    return jsonify({"task": response.data[0]}), 201
+    created_task = response.data[0]
+
+    if assigned_to and assigned_to != request.user.id:
+        try:
+            assignee = supabase.table("profiles").select("email, full_name").eq("id", assigned_to).execute()
+            if assignee.data:
+                recipient = assignee.data[0]
+                send_email_async(
+                    subject=f"New task assigned: {title}",
+                    to_email=recipient.get("email"),
+                    body=(
+                        f"Hi {recipient.get('full_name') or ''},\n\n"
+                        f"You've been assigned a new task: \"{title}\".\n"
+                        f"{('Description: ' + data.get('description')) if data.get('description') else ''}\n\n"
+                        f"— {Config.MAIL_FROM_NAME}"
+                    ),
+                )
+        except Exception:
+            logging.exception("Failed to send task assignment notification email")
+
+    return jsonify({"task": created_task}), 201
 
 
 @tasks_bp.get("")
@@ -117,5 +141,23 @@ def complete_task(task_id):
         .eq("id", task_id)
         .execute()
     )
+    completed_task = response.data[0]
 
-    return jsonify({"task": response.data[0]})
+    if completed_task["created_by"] != request.user.id:
+        try:
+            creator = supabase.table("profiles").select("email, full_name").eq("id", completed_task["created_by"]).execute()
+            if creator.data:
+                recipient = creator.data[0]
+                send_email_async(
+                    subject=f"Task completed: {completed_task['title']}",
+                    to_email=recipient.get("email"),
+                    body=(
+                        f"Hi {recipient.get('full_name') or ''},\n\n"
+                        f"Your task \"{completed_task['title']}\" has been marked complete.\n\n"
+                        f"— {Config.MAIL_FROM_NAME}"
+                    ),
+                )
+        except Exception:
+            logging.exception("Failed to send task completion notification email")
+
+    return jsonify({"task": completed_task})
